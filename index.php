@@ -2,6 +2,7 @@
 /**
  * @var PDO $connexion
  */
+require("fonction.php");
 require("config/db-config.php");
 $requete = $connexion->prepare("SELECT * FROM film");
 $requete->execute();
@@ -71,6 +72,7 @@ $resultats = $requete->FetchAll();
             <?= "<img src='$image' alt=''>" ?>
             <div class="card-body">
                 <h5 class="card-title"><?= $titre ?></h5>
+                <h5 class="card-title"><?= convertirMinutesEnHeures($duree) ?></h5>
                 <button class="btn btn-info "><a
                             class="text-white link-offset-2 link-underline link-underline-opacity-0"
                             href="#">Voir
