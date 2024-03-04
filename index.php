@@ -75,7 +75,7 @@ $resultats = $requete->FetchAll();
                 <h5 class="card-title"><?= convertirMinutesEnHeures($duree) ?></h5>
                 <button class="btn btn-info "><a
                             class="text-white link-offset-2 link-underline link-underline-opacity-0"
-                            href="#">Voir
+                            href="./détails.php?titre=<?= $idFilm ?>">Voir
                         détails</a></button>
             </div>
         </div>
