@@ -2,16 +2,15 @@
 require("fonction.php");
 require("./config/db-config.php");
 
-$requete = $connexion->prepare("SELECT * FROM film");
-$requete->execute();
-
-$resultats = $requete->FetchAll();
-
+$idFilm = null;
 if (isset($_GET["id_film"])) {
     $idFilm = $_GET["id_film"];
 }
-foreach ($resultats as $film) {
-    ["id_film" => $idFilm, "titre" => $titre, "duree" => $duree, "resume" => $resume, "date_sortie" => $dateSortie, "pays" => $pays, "image" => $image] = $film;
+
+if ($idFilm) {
+    $requete = $connexion->prepare("SELECT * FROM film WHERE id_film=:idFilm");
+    $requete->execute(["idFilm" => $idFilm]);
+    $resultats = $requete->Fetch(PDO::FETCH_ASSOC);
 }
 
 ?>
@@ -23,7 +22,7 @@ foreach ($resultats as $film) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./assets/css/darkly-bootstrap.min.css">
-    <title><?= $titre ?></title>
+    <title><?= $resultats["titre"] ?></title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-primary mb-3" data-bs-theme="dark">
@@ -71,12 +70,12 @@ foreach ($resultats as $film) {
 <div class="container text-center mt-5">
     <div class="row">
         <div class="col">
-            <?= "<img src='$image' alt=''>" ?>
-            <p class="mt-5">Date de sortie : <?= $dateSortie ?></p>
-            <p>Pays : <?= $pays ?></p>
+            <img src=<?= $resultats["image"] ?> alt=''>
+            <p class="mt-5">Date de sortie : <?= $resultats["date_sortie"] ?></p>
+            <p>Pays : <?= $resultats["pays"] ?></p>
         </div>
         <div class="col">
-            <?= $resume ?>
+            <?= $resultats["resume"] ?>
         </div>
     </div>
 </div>
