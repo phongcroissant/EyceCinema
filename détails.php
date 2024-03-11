@@ -13,6 +13,7 @@ if ($idFilm) {
     $resultats = $requete->Fetch(PDO::FETCH_ASSOC);
 }
 
+
 ?>
 <!doctype html>
 <html lang="fr">
@@ -24,58 +25,25 @@ if ($idFilm) {
     <link rel="stylesheet" href="./assets/css/darkly-bootstrap.min.css">
     <title><?= $resultats["titre"] ?></title>
 </head>
+<?php include_once("./menu/menu.php"); ?>
 <body>
-<nav class="navbar navbar-expand-lg bg-primary mb-3" data-bs-theme="dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
-                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Home
-                        <span class="visually-hidden">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                       aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Separated link</a>
-                    </div>
-                </li>
-            </ul>
-            <form class="d-flex">
-                <input class="form-control me-sm-2" type="search" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </div>
-    </div>
-</nav>
 <div class="container text-center mt-5">
     <div class="row">
         <div class="col">
             <img src=<?= $resultats["image"] ?> alt=''>
-            <p class="mt-5">Date de sortie : <?= $resultats["date_sortie"] ?></p>
+            <p class="mt-5">Date de sortie : <?php $date = $resultats["date_sortie"] ?>
+                <?php $timestamp = strtotime($date) ?>
+                <?php $date = date("d/m/Y", $timestamp) ?>
+                <?= $date ?> </p>
             <p>Pays : <?= $resultats["pays"] ?></p>
         </div>
         <div class="col">
-            <?= $resultats["resume"] ?>
+            <h1>
+                <?= $resultats["titre"] ?>
+            </h1>
+            <p>
+                <?= $resultats["resume"] ?>
+            </p>
         </div>
     </div>
 </div>
