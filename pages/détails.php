@@ -1,6 +1,6 @@
 <?php
-require("fonction.php");
-require("./config/db-config.php");
+require("../fonction/fonction.php");
+require("../config/db-config.php");
 
 $idFilm = null;
 if (isset($_GET["id_film"])) {
@@ -22,10 +22,10 @@ if ($idFilm) {
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./assets/css/darkly-bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/darkly-bootstrap.min.css">
     <title><?= $resultats["titre"] ?></title>
 </head>
-<?php include_once("./menu/menu.php"); ?>
+<?php include_once("../menu/menu.php"); ?>
 <body>
 <div class="container text-center mt-5">
     <div class="row">

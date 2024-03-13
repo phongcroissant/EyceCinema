@@ -2,7 +2,7 @@
 function convertirMinutesEnHeures($duree)
 {
     if ($duree < 60) {
-        return $duree;
+        return $duree . "m";
     } else {
         $heures = floor($duree / 60);
         $minutes = $duree % 60;

@@ -2,7 +2,7 @@
 /**
  * @var PDO $connexion
  */
-require("fonction.php");
+require("./fonction/fonction.php");
 require("config/db-config.php");
 $requete = $connexion->prepare("SELECT * FROM film");
 $requete->execute();
@@ -33,30 +33,34 @@ $resultats = $requete->FetchAll();
         <div class="collapse navbar-collapse me-auto justify-content-end mb-2" id="navbarColor01">
             <ul class="navbar-nav ">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Ajouter un film
-                        <span class="visually-hidden">(current)</span>
-                    </a>
+                    <a class="nav-link active" href="./pages/ajoutfilm.php">Ajouter un film</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="./pages/connexion.php">Connexion</a>
                 </li>
 
         </div>
     </div>
 </nav>
-<div class="container mx-auto justify-content-center">
-    <?php foreach ($resultats as $film): ?>
-        <?php ["id_film" => $idFilm, "titre" => $titre, "duree" => $duree, "resume" => $resume, "date_sortie" =>
-            $dateSortie, "pays" => $pays, "image" => $image] = $film ?>
-        <div class="card mx-auto col-lg-3 mb-3" style="width: 18rem;">
-            <?= "<img src='$image' alt=''>" ?>
-            <div class="card-body">
-                <h5 class="card-title"><?= $titre ?></h5>
-                <h5 class="card-title"><?= convertirMinutesEnHeures($duree) ?></h5>
-                <button class="btn btn-info "><a
-                            class="text-white link-offset-2 link-underline link-underline-opacity-0"
-                            href="./détails.php?id_film=<?= $film["id_film"] ?>">Voir
-                        détails</a></button>
+<div class="container mt-5">
+    <div class="row">
+        <?php foreach ($resultats as $film): ?>
+            <?php ["id_film" => $idFilm, "titre" => $titre, "duree" => $duree, "resume" => $resume, "date_sortie" =>
+                $dateSortie, "pays" => $pays, "image" => $image] = $film ?>
+            <div class="card mx-auto col-lg-3 mb-3 p-0" style="width: 18rem;">
+                <?= "<img src='$image' alt=''>" ?>
+                <div class="card-body">
+                    <h5 class="card-title"><?= $titre ?></h5>
+                    <h5 class="card-title"><?= convertirMinutesEnHeures($duree) ?></h5>
+                    <button class="btn btn-info "><a
+                                class="text-white link-offset-2 link-underline link-underline-opacity-0"
+                                href="./pages/détails.php?id_film=<?= $film["id_film"] ?>">Voir
+                            détails</a></button>
+                </div>
             </div>
-        </div>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
+    </div>
+
 </div>
 
 <script src="./assets/js/bootstrap.bundle.min.js"></script>
