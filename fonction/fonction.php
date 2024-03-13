@@ -15,3 +15,19 @@ function convertirMinutesEnHeures($duree)
     }
 
 }
+
+function verifierSiMailExiste($connexion, $email)
+{
+    $stmt = $connexion->prepare('SELECT count(*)
+            FROM `utilisateur`
+            WHERE email_utilisateur = :email');
+    $stmt->bindValue(':email', $email);
+    $stmt->execute();
+    $result = (int)$stmt->fetchColumn();
+    return $result;
+}
+
+function estSolide($password)
+{
+    return preg_match('/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,14}$/', $password);
+}

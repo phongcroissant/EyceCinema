@@ -3,6 +3,7 @@
  * @var PDO $connexion
  */
 require("../config/db-config.php");
+require("../fonction/fonction.php");
 // Déterminer si le formulaire a été soumis
 // Utilisation d'une variable superglobale $_SERVER
 // $_SERVER : tableau associatif contenant des informations sur la requête HTTP
@@ -33,9 +34,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
     if (empty($password)) {
         $erreurs["password"] = "Veuillez saisir un mot de passe";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $erreurs["email"] = "Veuillez saisir une adresse mail valide";
     }
+    if (!estSolide($password)) {
+        $erreurs["password"] = "Votre mot de passe doit contenir entre 8 et 14, doit posséder au moins 1 majuscule, 1 minuscule";
+    } elseif (verifierSiMailExiste($connexion, $email)) {
+        $erreurs["email"] = "Cette adresse email a déjà été utilisée";
+    }
+
 
     // Traiter les données
     if (empty($erreurs)) {
