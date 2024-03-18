@@ -27,15 +27,17 @@ if ($idFilm) {
 </head>
 <?php include_once("../menu/menu.php"); ?>
 <body>
-<div class="container text-center mt-5">
+<div class="container text-center mt-5 border border-light p-3 rounded-2">
     <div class="row">
         <div class="col">
             <img src=<?= $resultats["image"] ?> alt=''>
             <p class="mt-5">Date de sortie : <?php $date = $resultats["date_sortie"] ?>
                 <?php $timestamp = strtotime($date) ?>
                 <?php $date = date("d/m/Y", $timestamp) ?>
-                <?= $date ?> </p>
+                <?= $date ?>
+            </p>
             <p>Pays : <?= $resultats["pays"] ?></p>
+            <p>Durée : <?= convertirMinutesEnHeures($resultats["duree"]) ?></p>
         </div>
         <div class="col">
             <h1>

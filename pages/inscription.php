@@ -128,6 +128,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
     <button type="submit" class="btn btn-primary">Valider</button>
+    <a href="../pages/connexion.php" class="nav-item mb-2 nav-link p-0 mt-3">Vous avez déjà un compte ? Connectez-vous
+        !</a>
 </form>
 <script src="../assets/js/bootstrap.bundle.min.js"></script>
 </body>

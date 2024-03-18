@@ -36,6 +36,9 @@ $resultats = $requete->FetchAll();
                     <a class="nav-link active" href="./pages/ajoutfilm.php">Ajouter un film</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link active" href="./pages/inscription.php">Inscription</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link active" href="./pages/connexion.php">Connexion</a>
                 </li>
 

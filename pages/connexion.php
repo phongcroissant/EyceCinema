@@ -79,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
     <button type="submit" class="btn btn-primary">Valider</button>
-    <a href="inscription.php" class="nav-item mb-2 nav-link p-0 mt-3">Vous n'avez pas encore de compte ?
+    <a href="../pages/inscription.php" class="nav-item mb-2 nav-link p-0 mt-3">Vous n'avez pas encore de compte ?
         Créez-en un !</a>
 </form>
 <script src="../assets/js/bootstrap.bundle.min.js"></script>
