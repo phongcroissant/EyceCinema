@@ -39,8 +39,8 @@ if ($idFilm) {
             <p>Pays : <?= $resultats["pays"] ?></p>
             <p>Durée : <?= convertirMinutesEnHeures($resultats["duree"]) ?></p>
         </div>
-        <div class="col">
-            <h1>
+        <div class="col my-auto">
+            <h1 class="mb-4">
                 <?= $resultats["titre"] ?>
             </h1>
             <p>
@@ -48,6 +48,9 @@ if ($idFilm) {
             </p>
         </div>
     </div>
+</div>
+<div class="container mt-5">
+    <h1 class="border-bottom border-3 mb-4">Avis</h1>
 </div>
 </body>
 </html>

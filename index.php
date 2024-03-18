@@ -46,11 +46,12 @@ $resultats = $requete->FetchAll();
     </div>
 </nav>
 <div class="container mt-5">
+    <h1 class="border-bottom border-3 mb-4">Liste des films</h1>
     <div class="row">
         <?php foreach ($resultats as $film): ?>
             <?php ["id_film" => $idFilm, "titre" => $titre, "duree" => $duree, "resume" => $resume, "date_sortie" =>
                 $dateSortie, "pays" => $pays, "image" => $image] = $film ?>
-            <div class="card mx-auto col-lg-3 mb-3 p-0" style="width: 18rem;">
+            <div class="card mx-auto col-lg-3 mb-3 pt-3" style="width: 18rem;">
                 <?= "<img src='$image' alt=''>" ?>
                 <div class="card-body">
                     <h5 class="card-title"><?= $titre ?></h5>

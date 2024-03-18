@@ -1,6 +1,6 @@
 <?php
 /**
- * @var PDO $pdo
+ * @var PDO $connexion
  */
 require("../config/db-config.php");
 // Déterminer si le formulaire a été soumis
@@ -53,7 +53,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Traiter les données
     if (empty($erreurs)) {
-        $requete = $connexion->prepare("INSERT INTO film (titre,duree,resume,date_sortie,pays,image) VALUES ('$titre','$duree','$resume','$datesortie','$pays','$image')");
+        $requete = $connexion->prepare("INSERT INTO film (titre,duree,resume,date_sortie,pays,image) VALUES (?,?,?,?,?,?)");
+        $requete->bindParam(1, $titre);
+        $requete->bindParam(2, $duree);
+        $requete->bindParam(3, $resume);
+        $requete->bindParam(4, $datesortie);
+        $requete->bindParam(5, $pays);
+        $requete->bindParam(6, $image);
+
         $requete->execute();
         // Rediriger l'utisateur vers une autre page du site
         header("Location: ../index.php");
