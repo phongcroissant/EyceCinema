@@ -1,8 +1,6 @@
 <?php
-/**
- * @var PDO $connexion
- */
-require("../config/db-config.php");
+require_once "../../base.php";
+require_once(BASE_PROJET . "/src/database/film-db.php");
 // Déterminer si le formulaire a été soumis
 // Utilisation d'une variable superglobale $_SERVER
 // $_SERVER : tableau associatif contenant des informations sur la requête HTTP
@@ -53,15 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Traiter les données
     if (empty($erreurs)) {
-        $requete = $connexion->prepare("INSERT INTO film (titre,duree,resume,date_sortie,pays,image) VALUES (?,?,?,?,?,?)");
-        $requete->bindParam(1, $titre);
-        $requete->bindParam(2, $duree);
-        $requete->bindParam(3, $resume);
-        $requete->bindParam(4, $datesortie);
-        $requete->bindParam(5, $pays);
-        $requete->bindParam(6, $image);
-
-        $requete->execute();
+        createFilm($titre, $duree, $resume, $datesortie, $pays, $image);
         // Rediriger l'utisateur vers une autre page du site
         header("Location: ../index.php");
         exit();
@@ -82,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="../assets/css/darkly-bootstrap.min.css">
 </head>
 <body>
-<?php include_once("../menu/menu.php") ?>
+<?php require_once BASE_PROJET . "/src/_partials/menu.php" ?>
 <section>
     <div class="container">
         <div class="container justify-content-center">

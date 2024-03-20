@@ -1,4 +1,5 @@
 <?php
+require_once "../../base.php";
 // Déterminer si le formulaire a été soumis
 // Utilisation d'une variable superglobale $_SERVER
 // $_SERVER : tableau associatif contenant des informations sur la requête HTTP
@@ -45,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <title>Connexion</title>
 </head>
 <body>
-<?php include_once("../menu/menu.php") ?>
+<?php require_once BASE_PROJET . "/src/_partials/menu.php" ?>
 <div class="container justify-content-center">
     <h1 class="text-center mt-5">Connexion</h1>
 </div>

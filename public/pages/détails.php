@@ -1,16 +1,14 @@
 <?php
-require("../fonction/fonction.php");
-require("../config/db-config.php");
-
+require_once '../../base.php';
+require_once BASE_PROJET . '/src/database/film-db.php';
+require_once BASE_PROJET . '/src/fonction/fonction.php';
 $idFilm = null;
 if (isset($_GET["id_film"])) {
     $idFilm = $_GET["id_film"];
 }
 
 if ($idFilm) {
-    $requete = $connexion->prepare("SELECT * FROM film WHERE id_film=:idFilm");
-    $requete->execute(["idFilm" => $idFilm]);
-    $resultats = $requete->Fetch(PDO::FETCH_ASSOC);
+    $resultats = getDetails($idFilm);
 }
 
 
@@ -25,7 +23,7 @@ if ($idFilm) {
     <link rel="stylesheet" href="../assets/css/darkly-bootstrap.min.css">
     <title><?= $resultats["titre"] ?></title>
 </head>
-<?php include_once("../menu/menu.php"); ?>
+<?php require_once BASE_PROJET . "/src/_partials/menu.php" ?>
 <body>
 <div class="container text-center mt-5 border border-light p-3 rounded-2">
     <div class="row">

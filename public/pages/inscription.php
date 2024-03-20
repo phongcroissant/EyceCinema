@@ -1,9 +1,8 @@
 <?php
-/**
- * @var PDO $connexion
- */
-require("../config/db-config.php");
-require("../fonction/fonction.php");
+require_once "../../base.php";
+require_once BASE_PROJET . "/src/database/film-db.php";
+require_once(BASE_PROJET . "/src/fonction/fonction.php");
+
 // Déterminer si le formulaire a été soumis
 // Utilisation d'une variable superglobale $_SERVER
 // $_SERVER : tableau associatif contenant des informations sur la requête HTTP
@@ -12,6 +11,7 @@ $pseudo = "";
 $email = "";
 $password = "";
 $confirmPassword = "";
+$connexion = "";
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Le formulaire a été soumis !
     // Traiter les données du formulaire
@@ -40,17 +40,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
     if (!estSolide($password)) {
         $erreurs["password"] = "Votre mot de passe doit contenir entre 8 et 14, doit posséder au moins 1 majuscule, 1 minuscule";
-    } elseif (verifierSiMailExiste($connexion, $email)) {
+    } elseif (verifierSiMailExiste($email)) {
         $erreurs["email"] = "Cette adresse email a déjà été utilisée";
     }
 
 
     // Traiter les données
     if (empty($erreurs)) {
-        $password = password_hash($password, PASSWORD_DEFAULT);
-        $requete = $connexion->prepare("INSERT INTO utilisateur (pseudo_utilisateur,email_utilisateur,password) VALUES ('$pseudo','$email','$password')");
-
-        $requete->execute();
+        createAccount($password, $pseudo, $email);
         // Rediriger l'utisateur vers une autre page du site
         header("Location: ../index.php");
         exit();
@@ -70,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <title>Inscription</title>
 </head>
 <body>
-<?php include_once("../menu/menu.php") ?>
+<?php require_once BASE_PROJET . "/src/_partials/menu.php" ?>
 <div class="container justify-content-center">
     <h1 class="text-center mt-5">Inscription</h1>
 </div>
