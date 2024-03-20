@@ -20,7 +20,7 @@ $films = getFilms();
 <body>
 <!--Barre de navigation-->
 <?php require_once BASE_PROJET . "/src/_partials/menu.php" ?>
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <h1 class="border-bottom border-3 mb-4">Liste des films</h1>
     <div class="row">
         <?php foreach ($films as $film): ?>
@@ -39,7 +39,7 @@ $films = getFilms();
     </div>
 
 </div>
-
+<?php require_once BASE_PROJET . "/src/_partials/footer.php" ?>
 <script src="./assets/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

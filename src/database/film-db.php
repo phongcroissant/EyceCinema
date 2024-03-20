@@ -14,10 +14,9 @@ function getFilms(): array
 function getDetails($idFilm): array
 {
     $pdo = getConnexion();
-    $requete = $pdo->prepare("SELECT * FROM film WHERE id_film=:idFilm");
-    $requete->execute(["idFilm" => $idFilm]);
-    $resultats = $requete->Fetch(PDO::FETCH_ASSOC);
-    return $resultats;
+    $requete = $pdo->query("SELECT * FROM film WHERE id_film=$idFilm");
+    return $requete->FetchAll(PDO::FETCH_ASSOC);
+
 }
 
 function createFilm($titre, $duree, $resume, $datesortie, $pays, $image): void
