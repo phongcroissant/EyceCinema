@@ -17,7 +17,7 @@ if (isset($_GET["id_film"])) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../assets/css/darkly-bootstrap.min.css">
-    <title><?= $resultats["titre"] ?></title>
+    <title><?= $resultat["titre"] ?></title>
 </head>
 <?php require_once BASE_PROJET . "/src/_partials/menu.php" ?>
 <body>
@@ -35,7 +35,7 @@ if (isset($_GET["id_film"])) {
                         <?php $date = date("d/m/Y", $timestamp) ?>
                         <?= $date ?>
                     </p>
-                    <p>Pays : <?= $resultats["pays"] ?></p>
+                    <p>Pays : <?= $resultat["pays"] ?></p>
                     <p>Durée : <?= convertirMinutesEnHeures($resultat["duree"]) ?></p>
                 </div>
                 <div class="col my-auto">
