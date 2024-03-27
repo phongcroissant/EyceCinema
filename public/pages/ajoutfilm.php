@@ -1,6 +1,19 @@
 <?php
+session_start();
+if (empty($_SESSION)) {
+    header("location:/");
+}
 require_once "../../base.php";
 require_once(BASE_PROJET . "/src/database/film-db.php");
+require_once(BASE_PROJET . "/src/database/user-db.php");
+$pseudo = null;
+if (isset($_SESSION["pseudo_utilisateur"])) {
+    $pseudo = $_SESSION["pseudo_utilisateur"];
+}
+$idUtilisateur = null;
+if (isset($_SESSION["id_utilisateur"])) {
+    $idUtilisateur = $_SESSION["id_utilisateur"];
+}
 // Déterminer si le formulaire a été soumis
 // Utilisation d'une variable superglobale $_SERVER
 // $_SERVER : tableau associatif contenant des informations sur la requête HTTP
@@ -51,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Traiter les données
     if (empty($erreurs)) {
-        createFilm($titre, $duree, $resume, $datesortie, $pays, $image);
+        createFilm($titre, $duree, $resume, $datesortie, $pays, $image, $idUtilisateur);
         // Rediriger l'utisateur vers une autre page du site
         header("Location: ../index.php");
         exit();
@@ -74,6 +87,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <body>
 <?php require_once BASE_PROJET . "/src/_partials/menu.php" ?>
 <section>
+    <?php if ($pseudo): ?>
+        <p class="text-end me-2">
+            Vous êtes connectés en tant que <?= $pseudo ?>
+        </p>
+    <?php endif; ?>
     <div class="container">
         <div class="container justify-content-center">
             <h1 class="text-center mt-5">Ajouter un film</h1>

@@ -1,13 +1,17 @@
 <?php
+session_start();
 require_once '../../base.php';
 require_once BASE_PROJET . '/src/database/film-db.php';
+require_once BASE_PROJET . '/src/database/user-db.php';
 require_once BASE_PROJET . '/src/fonction/fonction.php';
 $idFilm = null;
 if (isset($_GET["id_film"])) {
     $idFilm = $_GET["id_film"];
 }
+$resultats = getDetails($idFilm);
+foreach ($resultats as $resultat) {
 
-
+}
 ?>
 <!doctype html>
 <html lang="fr">
@@ -17,14 +21,12 @@ if (isset($_GET["id_film"])) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../assets/css/darkly-bootstrap.min.css">
-    <title><?= $resultats["titre"] ?></title>
+    <title><?= $resultat["titre"] ?></title>
 </head>
 <?php require_once BASE_PROJET . "/src/_partials/menu.php" ?>
 <body>
 <?php if ($idFilm) : ?>
-    <?php $resultats = getDetails($idFilm) ?>
-    <?php foreach ($resultats as $resultat) : ?>
-    <?php endforeach ?>
+
     <?php if ($resultats != null) : ?>
         <div class="container text-center mt-5 border border-light p-3 rounded-2">
             <div class="row">
@@ -35,8 +37,9 @@ if (isset($_GET["id_film"])) {
                         <?php $date = date("d/m/Y", $timestamp) ?>
                         <?= $date ?>
                     </p>
-                    <p>Pays : <?= $resultats["pays"] ?></p>
+                    <p>Pays : <?= $resultat["pays"] ?></p>
                     <p>Durée : <?= convertirMinutesEnHeures($resultat["duree"]) ?></p>
+                    <p>Ajouté par : <?= $resultat["pseudo_utilisateur"] ?></p>
                 </div>
                 <div class="col my-auto">
                     <h1 class="mb-4">

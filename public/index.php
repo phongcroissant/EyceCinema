@@ -1,9 +1,15 @@
 <?php
+session_start();
 require_once '../base.php';
 require_once BASE_PROJET . '/src/config/db-config.php';
 require_once BASE_PROJET . "/src/database/film-db.php";
+require_once BASE_PROJET . "/src/database/user-db.php";
 require_once BASE_PROJET . "/src/fonction/fonction.php";
 $films = getFilms();
+$pseudo = null;
+if (isset($_SESSION["pseudo_utilisateur"])) {
+    $pseudo = $_SESSION["pseudo_utilisateur"];
+}
 ?>
 <!doctype html>
 <html lang="fr">
@@ -20,6 +26,11 @@ $films = getFilms();
 <body>
 <!--Barre de navigation-->
 <?php require_once BASE_PROJET . "/src/_partials/menu.php" ?>
+<p>
+    <?php if ($pseudo): ?>
+    <p class="text-end me-1">Vous êtes connectés en tant que <?= $pseudo ?></p>
+<?php endif; ?>
+</p>
 <div class="container mt-5 mb-5">
     <h1 class="border-bottom border-3 mb-4">Liste des films</h1>
     <div class="row">
@@ -31,8 +42,7 @@ $films = getFilms();
                     <h5 class="card-title"><?= convertirMinutesEnHeures($film["duree"]) ?></h5>
                     <button class="btn btn-info "><a
                                 class="text-white link-offset-2 link-underline link-underline-opacity-0"
-                                href="pages/détails.php?id_film=<?= $film["id_film"] ?>">Voir
-                            détails</a></button>
+                                href="pages/détails.php?id_film=<?= $film["id_film"] ?>">Voir détails</a></button>
                 </div>
             </div>
         <?php endforeach; ?>

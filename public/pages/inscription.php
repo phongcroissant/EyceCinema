@@ -1,6 +1,11 @@
 <?php
+session_start();
+if (!empty($_SESSION)) {
+    header("location:/");
+}
 require_once "../../base.php";
 require_once BASE_PROJET . "/src/database/film-db.php";
+require_once BASE_PROJET . "/src/database/user-db.php";
 require_once(BASE_PROJET . "/src/fonction/fonction.php");
 
 // Déterminer si le formulaire a été soumis
