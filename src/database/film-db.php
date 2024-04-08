@@ -5,8 +5,7 @@ function getFilms(): array
 {
     $pdo = getConnexion();
     $requete = $pdo->prepare("SELECT * 
-FROM `film` AS F, `utilisateur` AS U 
-WHERE F.id_utilisateur=U.id_utilisateur 
+FROM `film`
 ");
     $requete->execute();
 
@@ -36,5 +35,15 @@ function createFilm($titre, $duree, $resume, $datesortie, $pays, $image, $idUtil
 
     $requete->execute();
 
+}
+
+function getFilmFromId($id_utilisateur): array
+{
+    $pdo = getConnexion();
+    $requete = $pdo->query("SELECT * FROM film WHERE id_utilisateur LIKE $id_utilisateur");
+    $requete->execute();
+    $film = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+    return $film;
 }
 

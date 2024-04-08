@@ -12,6 +12,7 @@ $resultats = getDetails($idFilm);
 foreach ($resultats as $resultat) {
 
 }
+$getPseudoFromId = getPseudoFromId($resultat["id_utilisateur"]);
 ?>
 <!doctype html>
 <html lang="fr">
@@ -30,8 +31,17 @@ foreach ($resultats as $resultat) {
     <?php if ($resultats != null) : ?>
         <div class="container text-center mt-5 border border-light p-3 rounded-2">
             <div class="row">
-                <div class="col">
-                    <img src=<?= $resultat["image"] ?> alt=''>
+                <div class="col-md-6 my-auto">
+                    <h1 class="mb-4">
+                        <?= $resultat["titre"] ?>
+                    </h1>
+                    <p>
+                        <?= $resultat["resume"] ?>
+                    </p>
+
+                </div>
+                <div class="col-md-6 my-auto">
+                    <img class="w-100 d-md-block d-none" src=<?= $resultat["image"] ?> alt=''>
                     <p class="mt-5">Date de sortie : <?php $date = $resultat["date_sortie"] ?>
                         <?php $timestamp = strtotime($date) ?>
                         <?php $date = date("d/m/Y", $timestamp) ?>
@@ -39,15 +49,7 @@ foreach ($resultats as $resultat) {
                     </p>
                     <p>Pays : <?= $resultat["pays"] ?></p>
                     <p>Durée : <?= convertirMinutesEnHeures($resultat["duree"]) ?></p>
-                    <p>Ajouté par : <?= $resultat["pseudo_utilisateur"] ?></p>
-                </div>
-                <div class="col my-auto">
-                    <h1 class="mb-4">
-                        <?= $resultat["titre"] ?>
-                    </h1>
-                    <p>
-                        <?= $resultat["resume"] ?>
-                    </p>
+                    <p>Ajouté par : <?= $getPseudoFromId[0]["pseudo_utilisateur"]; ?></p>
                 </div>
             </div>
         </div>

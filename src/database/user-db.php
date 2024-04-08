@@ -29,3 +29,13 @@ function getAccount(): array
 
     return $comptes;
 }
+
+function getPseudoFromId($id_utilisateur): array
+{
+    $pdo = getConnexion();
+    $requete = $pdo->query("SELECT pseudo_utilisateur FROM utilisateur WHERE id_utilisateur LIKE $id_utilisateur");
+    $requete->execute();
+    $comptes = $requete->fetchAll(PDO::FETCH_ASSOC);
+
+    return $comptes;
+}

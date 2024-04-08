@@ -37,10 +37,10 @@ if (isset($_SESSION["pseudo_utilisateur"])) {
         <?php foreach ($films as $film): ?>
             <div class="card mx-auto col-lg-3 mb-3 pt-3" style="width: 18rem;">
                 <img src='<?= $film["image"] ?>' alt=''>
-                <div class="card-body">
+                <div class="card-body d-flex flex-column">
                     <h5 class="card-title"><?= $film["titre"] ?></h5>
                     <h5 class="card-title"><?= convertirMinutesEnHeures($film["duree"]) ?></h5>
-                    <button class="btn btn-info "><a
+                    <button class="btn btn-info mt-auto mx-auto"><a
                                 class="text-white link-offset-2 link-underline link-underline-opacity-0"
                                 href="pages/détails.php?id_film=<?= $film["id_film"] ?>">Voir détails</a></button>
                 </div>

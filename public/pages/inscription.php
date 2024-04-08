@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <div class="container justify-content-center">
     <h1 class="text-center mt-5">Inscription</h1>
 </div>
-<form action="" method="post" class=" mx-auto w-50 p-5" novalidate>
+<form action="" method="post" class=" mx-auto w-50 p-5">
     <div class="mb-3">
         <label for="pseudo" class="form-label"><p>Pseudo *</p></label>
         <input type="text"

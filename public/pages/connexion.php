@@ -38,9 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (empty($erreurs)) {
         if ($accounts) {
             foreach ($accounts as $account) {
-                if (!verifierSiMailExiste($email)) {
-                    $erreurs["identifiant"] = "L'email ou le mot de passe est incorrect";
-                } elseif (!password_verify($password, $account["password"])) {
+                if (!verifierSiMailExiste($email) && !password_verify($password, $account["password"])) {
                     $erreurs["identifiant"] = "L'email ou le mot de passe est incorrect";
                 } else {
                     // Rediriger l'utisateur vers une autre page du site

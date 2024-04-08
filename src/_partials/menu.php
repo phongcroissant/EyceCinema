@@ -20,6 +20,11 @@ if (isset($_SESSION["pseudo_utilisateur"])) {
                     <li class="nav-item">
                         <a class="nav-link active" href="<?php BASE_PROJET ?>/pages/ajoutfilm.php">Ajouter un film</a>
                     </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link active" href="<?php BASE_PROJET ?>/pages/vosfilms.php">Vos films</a>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link active" href="<?php BASE_PROJET ?>/pages/logout.php">Se
                             déconnecter</a>
