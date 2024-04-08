@@ -123,12 +123,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
             <div class="mb-3">
                 <label for="resume" class="form-label">Résumé *</label>
-                <input type="text"
-                       class="form-control <?= (isset($erreurs["resume"])) ? "border border-2 border-danger" : "" ?>"
-                       name="resume"
-                       id="resume"
-                       value="<?= $resume ?>"
-                       placeholder="Quelque chose comme ça">
+                <textarea type="text"
+                          class="form-control <?= (isset($erreurs["resume"])) ? "border border-2 border-danger" : "" ?>"
+                          name="resume"
+                          id="resume"
+                          placeholder="Quelque chose comme ça"></textarea>
                 <?php if (isset($erreurs["resume"])): ?>
                     <p class="form-text text-danger"><?= $erreurs["resume"] ?></p>
                 <?php endif; ?>

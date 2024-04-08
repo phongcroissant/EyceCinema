@@ -53,8 +53,11 @@ $getPseudoFromId = getPseudoFromId($resultat["id_utilisateur"]);
                 </div>
             </div>
         </div>
-        <div class="container mt-5">
-            <h1 class="border-bottom border-3 mb-4">Avis</h1>
+        <div class="container border-bottom border-3 my-5 d-flex">
+            <h1>Avis</h1>
+            <button class="btn btn-info mt-auto position-relative"><a
+                        class="text-white link-offset-2 link-underline link-underline-opacity-0"
+                        href="ajout-commentaire.php=<?= $idFilm ?>">Ajouter un commentaire</a></button>
         </div>
     <?php else : ?>
         <h1 class="mt-5 p-5 container bg bg-danger text-center">Le film n'existe pas !</h1>

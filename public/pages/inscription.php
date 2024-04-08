@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </div>
 <form action="" method="post" class=" mx-auto w-50 p-5">
     <div class="mb-3">
-        <label for="pseudo" class="form-label"><p>Pseudo *</p></label>
+        <label for="pseudo" class="form-label">Pseudo *</label>
         <input type="text"
                class="form-control <?= (isset($erreurs["pseudo"])) ? "border border-2 border-danger" : "" ?>"
                name="pseudo"
