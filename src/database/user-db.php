@@ -20,14 +20,14 @@ function verifierSiMailExiste($email)
     return $result;
 }
 
-function getAccount(): array
+function getAccount(): ?array
 {
     $pdo = getConnexion();
-    $requete = $pdo->query("SELECT * FROM utilisateur");
+    $requete = $pdo->prepare("SELECT * FROM utilisateur");
     $requete->execute();
-    $comptes = $requete->fetchAll(PDO::FETCH_ASSOC);
+    $account = $requete->fetchAll(PDO::FETCH_ASSOC);
 
-    return $comptes;
+    return $account ?: null;
 }
 
 function getPseudoFromId($id_utilisateur): array

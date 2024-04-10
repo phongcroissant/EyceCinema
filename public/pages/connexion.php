@@ -15,7 +15,6 @@ $password = "";
 $identifiant = "";
 $accounts = getAccount();
 
-
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Le formulaire a été soumis !
     // Traiter les données du formulaire
@@ -38,12 +37,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (empty($erreurs)) {
         if ($accounts) {
             foreach ($accounts as $account) {
-                if (!verifierSiMailExiste($email) && !password_verify($password, $account["password"])) {
+                if (!verifierSiMailExiste($email)) {
+                    $erreurs["identifiant"] = "L'email ou le mot de passe est incorrect";
+                } elseif (!password_verify($password, $account["password"])) {
                     $erreurs["identifiant"] = "L'email ou le mot de passe est incorrect";
                 } else {
                     // Rediriger l'utisateur vers une autre page du site
-                    $_SESSION["pseudo_utilisateur"] = $account["pseudo_utilisateur"];
-                    $_SESSION["id_utilisateur"] = $account["id_utilisateur"];
+                    $_SESSION["utilisateur"] = [
+                        "pseudo_utilisateur" => $account["pseudo_utilisateur"],
+                        "email_utilisateur" => $account["email_utilisateur"],
+                        "id_utilisateur" => $account["id_utilisateur"]
+                    ];
                     header("Location: ../index.php");
                     exit();
                 }
@@ -55,7 +59,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     }
 }
-
 ?>
 <!doctype html>
 <html lang="en">

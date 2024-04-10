@@ -7,8 +7,8 @@ require_once BASE_PROJET . "/src/database/user-db.php";
 require_once BASE_PROJET . "/src/fonction/fonction.php";
 $films = getFilms();
 $pseudo = null;
-if (isset($_SESSION["pseudo_utilisateur"])) {
-    $pseudo = $_SESSION["pseudo_utilisateur"];
+if (isset($_SESSION["utilisateur"])) {
+    $pseudo = $_SESSION["utilisateur"]["pseudo_utilisateur"];
 }
 ?>
 <!doctype html>

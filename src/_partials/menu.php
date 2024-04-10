@@ -1,7 +1,7 @@
 <?php
 $pseudo = null;
-if (isset($_SESSION["pseudo_utilisateur"])) {
-    $pseudo = $_SESSION["pseudo_utilisateur"];
+if (isset($_SESSION["utilisateur"])) {
+    $pseudo = $_SESSION["utilisateur"]["pseudo_utilisateur"];
 }
 ?>
 <nav class="navbar navbar-expand-lg bg-primary mb-3" data-bs-theme="dark">
@@ -20,7 +20,7 @@ if (isset($_SESSION["pseudo_utilisateur"])) {
                     <li class="nav-item">
                         <a class="nav-link active" href="<?php BASE_PROJET ?>/pages/ajoutfilm.php">Ajouter un film</a>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a class="nav-link active" href="<?php BASE_PROJET ?>/pages/vosfilms.php">Vos films</a>
                     </li>

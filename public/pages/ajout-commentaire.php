@@ -6,48 +6,61 @@ if (empty($_SESSION)) {
 require_once "../../base.php";
 require_once BASE_PROJET . "/src/database/film-db.php";
 require_once BASE_PROJET . "/src/database/user-db.php";
+require_once BASE_PROJET . "/src/database/commentaire-db.php";
 require_once(BASE_PROJET . "/src/fonction/fonction.php");
 $idFilm = null;
 if (isset($_GET["id_film"])) {
     $idFilm = $_GET["id_film"];
 }
+$pseudo = null;
+$idUtilisateur = null;
+if (isset($_SESSION["utilisateur"])) {
+    $pseudo = $_SESSION["utilisateur"]["pseudo_utilisateur"];
+    $idUtilisateur = $_SESSION["utilisateur"]["id_utilisateur"];
+}
+$resultats = getDetails($idFilm);
 // Déterminer si le formulaire a été soumis
 // Utilisation d'une variable superglobale $_SERVER
 // $_SERVER : tableau associatif contenant des informations sur la requête HTTP
 $erreurs = [];
-$titre = "";
-$avis = "";
-$note = "";
+$titreCommentaire = "";
+$avisCommentaire = "";
+$noteCommentaire = "";
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Le formulaire a été soumis !
     // Traiter les données du formulaire
     // Récupérer les valeurs saisies par l'utilisateur
     // Superglobale $_POST : tableau associatif
-    $titre = $_POST['titre'];
-    $avis = $_POST['avis'];
-    $note = $_POST['note'];
+    $titreCommentaire = $_POST['titreCommentaire'];
+    $avisCommentaire = $_POST['avisCommentaire'];
+    $noteCommentaire = $_POST['note'];
 
     // Validation des données
-    if (empty($note)) {
-        $erreurs["email"] = "Veuillez saisir une adresse mail";
+    if (empty($titreCommentaire)) {
+        $erreurs["titreCommentaire"] = "Veuillez saisir un titre";
     }
-    if (empty($pseudo)) {
-        $erreurs["pseudo"] = "Veuillez saisir un pseudo";
+    if (empty($avisCommentaire)) {
+        $erreurs["avisCommentaire"] = "Veuillez émettre un avis";
     }
-    if (empty($password)) {
-        $erreurs["password"] = "Veuillez saisir un mot de passe";
+    if (empty($noteCommentaire)) {
+        $erreurs["note"] = "Veuillez saisir une note";
+    }
+    if ($noteCommentaire < 0 || $noteCommentaire > 5) {
+        $erreurs["note"] = "Veuillez saisir une note entre 0 et 5 !";
     }
 
 
     // Traiter les données
     if (empty($erreurs)) {
-
+        addCommentaire($titreCommentaire, $avisCommentaire, $noteCommentaire, date("Y-m-d"), date("H:i:s"), $idUtilisateur, $idFilm);
         // Rediriger l'utisateur vers une autre page du site
         header("Location: ../index.php");
         exit();
     }
 }
-
+foreach ($resultats as $resultat) {
+    $titreFilm = $resultat["titre"];
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -64,29 +77,30 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <?php require_once BASE_PROJET . "/src/_partials/menu.php" ?>
 <div class="container justify-content-center">
     <h1 class="text-center mt-5">Donnez un avis !</h1>
+    <h3 class="text-center mt-5"><?= $titreFilm ?></h3>
 </div>
-<form action="" method="post" class=" mx-auto w-50 p-5">
+<form action="" method="post" class=" mx-auto w-50 p-5" novalidate>
     <div class="mb-3">
-        <label for="titre" class="form-label">Titre *</label>
+        <label for="titreCommentaire" class="form-label">Durée *</label>
         <input type="text"
-               class="form-control <?= (isset($erreurs["titre"])) ? "border border-2 border-danger" : "" ?>"
-               name="titre"
-               id="titre"
-               value="<?= $titre ?>"
-               placeholder="Saisir un titre">
-        <?php if (isset($erreurs["titre"])): ?>
-            <p class="form-text text-danger"><?= $erreurs["titre"] ?></p>
+               class="form-control <?= (isset($erreurs["titreCommentaire"])) ? "border border-2 border-danger" : "" ?>"
+               name="titreCommentaire"
+               id="titreCommentaire"
+               value="<?= $titreCommentaire ?>"
+               placeholder="Génial !">
+        <?php if (isset($erreurs["titreCommentaire"])): ?>
+            <p class="form-text text-danger"><?= $erreurs["titreCommentaire"] ?></p>
         <?php endif; ?>
     </div>
     <div class="mb-3">
-        <label for="avis" class="form-label">Avis *</label>
+        <label for="avisCommentaire" class="form-label">Résumé *</label>
         <textarea type="text"
-                  class="form-control <?= (isset($erreurs["avis"])) ? "border border-2 border-danger" : "" ?>"
-                  name="avis"
-                  id="avis"
+                  class="form-control <?= (isset($erreurs["avisCommentaire"])) ? "border border-2 border-danger" : "" ?>"
+                  name="avisCommentaire"
+                  id="avisCommentaire"
                   placeholder="Quelque chose comme ça"></textarea>
-        <?php if (isset($erreurs["avis"])): ?>
-            <p class="form-text text-danger"><?= $erreurs["avis"] ?></p>
+        <?php if (isset($erreurs["avisCommentaire"])): ?>
+            <p class="form-text text-danger"><?= $erreurs["avisCommentaire"] ?></p>
         <?php endif; ?>
     </div>
     <div class="mb-3">
@@ -97,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                min="0"
                max="5"
                id="note"
-               value="<?= $note ?>"
+               value="0"
                placeholder="Saisir votre note entre 0 et 5">
         <?php if (isset($erreurs["note"])): ?>
             <p class="form-text text-danger"><?= $erreurs["note"] ?></p>

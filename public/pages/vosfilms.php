@@ -9,13 +9,12 @@ if (empty($_SESSION)) {
     header("location:/");
 }
 $pseudo = null;
-if (isset($_SESSION["pseudo_utilisateur"])) {
-    $pseudo = $_SESSION["pseudo_utilisateur"];
+$idUtilisateur = null;
+if (isset($_SESSION["utilisateur"])) {
+    $pseudo = $_SESSION["utilisateur"]["pseudo_utilisateur"];
+    $idUtilisateur = $_SESSION["utilisateur"]["id_utilisateur"];
 }
-if (isset($_SESSION["id_utilisateur"])) {
-    $id_utilisateur = $_SESSION["id_utilisateur"];
-}
-$films = getFilmFromId($id_utilisateur);
+$films = getFilmFromId($idUtilisateur);
 ?>
 <!doctype html>
 <html lang="fr">
@@ -52,7 +51,7 @@ $films = getFilmFromId($id_utilisateur);
                         <h5 class="card-title"><?= convertirMinutesEnHeures($film["duree"]) ?></h5>
                         <button class="btn btn-info mt-auto mx-auto"><a
                                     class="text-white link-offset-2 link-underline link-underline-opacity-0"
-                                    href="pages/détails.php?id_film=<?= $film["id_film"] ?>">Voir détails</a></button>
+                                    href="détails.php?id_film=<?= $film["id_film"] ?>">Voir détails</a></button>
                     </div>
                 </div>
             <?php endforeach; ?>

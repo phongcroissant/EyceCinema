@@ -40,7 +40,8 @@ function createFilm($titre, $duree, $resume, $datesortie, $pays, $image, $idUtil
 function getFilmFromId($id_utilisateur): array
 {
     $pdo = getConnexion();
-    $requete = $pdo->query("SELECT * FROM film WHERE id_utilisateur LIKE $id_utilisateur");
+    $requete = $pdo->prepare("SELECT * FROM film WHERE id_utilisateur = :id_utilisateur");
+    $requete->bindParam("id_utilisateur", $id_utilisateur, PDO::PARAM_INT);
     $requete->execute();
     $film = $requete->fetchAll(PDO::FETCH_ASSOC);
 
