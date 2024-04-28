@@ -35,14 +35,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Traiter les données
     if (empty($erreurs)) {
-        if ($accounts) {
-            foreach ($accounts as $account) {
-                if (!verifierSiMailExiste($email)) {
-                    $erreurs["identifiant"] = "L'email ou le mot de passe est incorrect";
-                } elseif (!password_verify($password, $account["password"])) {
+        $accountFound = false;
+        foreach ($accounts as $account) {
+            if ($account["email_utilisateur"] === $email) {
+                $accountFound = true;
+                if (!password_verify($password, $account["password"])) {
                     $erreurs["identifiant"] = "L'email ou le mot de passe est incorrect";
                 } else {
-                    // Rediriger l'utisateur vers une autre page du site
+                    // Rediriger l'utilisateur vers la page d'accueil
                     $_SESSION["utilisateur"] = [
                         "pseudo_utilisateur" => $account["pseudo_utilisateur"],
                         "email_utilisateur" => $account["email_utilisateur"],
@@ -51,12 +51,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     header("Location: ../index.php");
                     exit();
                 }
+                break;
             }
-        } else {
+        }
+        if (!$accountFound) {
             $erreurs["identifiant"] = "L'email ou le mot de passe est incorrect";
         }
-
-
     }
 }
 ?>
@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                name="password"
                id="password"
                value="<?= $password ?>"
-               placeholder="AntoineLaTaupe@gmail.com">
+               placeholder="Mot de passe">
         <?php if (isset($erreurs["password"])): ?>
             <p class="form-text text-danger"><?= $erreurs["password"] ?></p>
         <?php endif; ?>

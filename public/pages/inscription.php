@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $erreurs["email"] = "Veuillez saisir une adresse mail valide";
     }
     if (!estSolide($password)) {
-        $erreurs["password"] = "Votre mot de passe doit contenir entre 8 et 14, doit posséder au moins 1 majuscule, 1 minuscule";
+        $erreurs["password"] = "Votre mot de passe doit contenir entre 8 et 14 caratères, doit posséder au moins 1 majuscule, 1 minuscule et 1 chiffre";
     } elseif (verifierSiMailExiste($email)) {
         $erreurs["email"] = "Cette adresse email a déjà été utilisée";
     }
@@ -112,8 +112,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                value="<?= $password ?>"
                placeholder="Mot de passe">
         <?php if (isset($erreurs["password"])): ?>
-            <p class="form-text text-danger"><?= $erreurs["password"] ?></p>
+            <div id="emailHelp" class="form-text text-danger"><?= $erreurs["password"] ?></div>
+        <?php else: ?>
+            <div id="emailHelp" class="form-text">Votre mot de passe doit contenir entre 8 et 14 caratères, doit posséder au moins 1 majuscule, 1 minuscule et 1 chiffre</div>
         <?php endif; ?>
+
     </div>
     <div class="mb-3">
         <label for="confirmpassword" class="form-label">Confirmation mot de passe *</label>
