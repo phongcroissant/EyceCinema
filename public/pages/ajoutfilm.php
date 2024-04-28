@@ -116,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                        name="duree"
                        id="duree"
                        value="<?= $duree ?>"
-                       placeholder="120">
+                       placeholder="En minute">
                 <?php if (isset($erreurs["duree"])): ?>
                     <p class="form-text text-danger"><?= $erreurs["duree"] ?></p>
                 <?php endif; ?>
